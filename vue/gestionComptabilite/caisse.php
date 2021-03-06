@@ -26,14 +26,8 @@
       <li class="nav-item">
       <a class="nav-link active text-dark" href="caisse.php">Comptabilité</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link active text-dark dropdown-toggle" href="../gestionFacture" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Factures
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="../gestionFacture/factureProforma.php">Facture Proforma</a>
-          <a class="dropdown-item" href="../gestionFacture/factureDef.php">Facture Définitive</a>
-        </div>
+      <li class="nav-item">
+        <a class="nav-link active text-dark" href="../gestionFacture/facture.php" >Factures</a>
       </li>
       <li class="nav-item">
       <a class="nav-link active text-dark" href="#">Services</a>

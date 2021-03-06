@@ -4,7 +4,7 @@ include('../model/bd.php');
     $type = $_POST['type'];
     $motif=$_POST['motif'];
     $heure=date("H:i:s");
-    $montant=$_POST['montant'];;
+    $montant=$_POST['montant'];
     $somEntree; $somSortie;
     $total;
 //    enregistrement des entrees/sorties
@@ -25,9 +25,5 @@ if(isset($_POST['enregistrer'])){
          header('location: ../vue/gestionComptabilite/caisse.php');
         else echo $conn->error;
 }
-// rechercher les entrees/sorties
-// $dateR=$_POST['date'];
-// if(isset($_POST['recherche'])){
-//     $query = "SELECT * FROM caisse Where dataEnregistrement='$dateR'";
-// }
+
 ?>

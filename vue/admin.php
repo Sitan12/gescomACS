@@ -38,13 +38,13 @@
   </div>
 </nav>
   </div>
-  <div class="dropdown-menu">
+  <!-- <div class="dropdown-menu">
   <a class="dropdown-item" href="#">Action</a>
   <a class="dropdown-item" href="#">Another action</a>
   <a class="dropdown-item" href="#">Something else here</a>
   <div class="dropdown-divider"></div>
   <a class="dropdown-item" href="#">Separated link</a>
-</div>
+</div> -->
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
