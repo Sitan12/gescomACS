@@ -22,6 +22,8 @@
 <link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
 <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
 <meta name="theme-color" content="#7952b3">
+
+
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -40,12 +42,12 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
+    <link href="../../dashboard.css" rel="stylesheet">
   </head>
   <body>
     
 <header class="navbar navbar-dark sticky-top bg-success flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 bg-light" href="#"><img src="static/img/logo ACS.png" alt="logo"></a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 bg-light" href="#"><img src="../../static/img/logo ACS.png" alt="logo"></a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -82,19 +84,19 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="vue/gestionEmployers/employer.php">
+            <a class="nav-link" href="../gestionEmployers/employer.php">
               <span data-feather="bar-chart-2"></span>
               Personnel
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="vue/gestionFacture/Factures.php">
+            <a class="nav-link" href="../gestionFacture/Factures.php">
               <span data-feather="layers"></span>
               Factures
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="vue/gestionComptabilite/caisse.php">
+            <a class="nav-link" href="../gestionComptabilite/caisse.php">
               <span data-feather="layers"></span>
               Comptabilite
             </a>
@@ -105,16 +107,120 @@
     </nav>
 
     <main class=" container all-content-wrap" style="margin-left: 220px;">
-     
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut, natus corrupti adipisci tenetur laboriosam qui. Impedit voluptate adipisci earum consectetur magni placeat sunt ex non, maxime quo, rerum quam rem?
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio molestiae, exercitationem natus rerum quis voluptatum inventore nostrum fugiat possimus tenetur, mollitia assumenda quaerat? Minus quo, earum ad itaque nostrum a.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem quisquam voluptates quaerat rem id cum maiores perspiciatis nemo tempore ex repellendus sunt, ipsam odio ducimus dolorum? Facere praesentium facilis optio.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro nobis deleniti mollitia? Minus tempora et eius expedita blanditiis quas quod, distinctio non maiores dolores perferendis quaerat dolorum, vero ipsa assumenda.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto aliquid pariatur blanditiis minus consequatur maiores esse corrupti at tempore, perferendis sequi dolorem nostrum, labore repudiandae fugiat cum fuga assumenda quis.
-            </p>
+     <?php include('../../model/bd.php'); ?>
+    <div class="container">
+    <div class="row p-4">
+            <div class="col-4">
+                <img src="../../static/img/logo ACS.png" style="width: 50; height: 50;">
+            </div>
+            <div class="col-6">
+            <h2 >ALLIANCE CUSTOMER SERVICE</h2>
+            </div>
+        </div>
+        <hr>
+        <h5 class="text-center p-2">FACTURE PROFORMA</h5>
+
+        <!-- affichage de la facture -->
+    <?php 
+        $query1 = "SELECT * FROM factureproforma ";
+        $result = $conn-> query($query1);
+    ?>
+    <div class="row ">
+          <div class="col-3 offset-1">
+              <table class="table ">
+                      <tr style="font-weight: bold;">
+                          <th>Date</th>
+                          <th>Numero</th>
+                      </tr>
+                      <tr>
+                      <td><?php $rst=$conn->query("SELECT dateFP FROM factureproforma ");
+                              if($row=$rst->fetch_assoc()){
+                                $date=$row['dateFP']; 
+                              } echo $date ?></td>
+                          <td>FP</td>
+                      </tr>
+              </table>
+          </div>
+          <div class="col-3 offset-4">
+              <table class="table ">
+                      <tr style="font-weight: bold;">
+                          <th>Destinataire</th>
+                      </tr>
+                      <tr>
+                          <td><?php $rst=$conn->query("SELECT nom FROM client INNER JOIN facturedefinitive ON client.id = facturedefinitive.client");
+                              if($row=$rst->fetch_assoc()){
+                                $nom=$row['nom']; 
+                              } echo $nom ?></td>
+                      </tr>
+              </table>
+          </div>
+      </div>
+  <div class="row">
+      <div class="col-12 p-4">  
+        <table class="table table-bordered" >
+          <thead align="center" class="bg-primary">
+              <th>QTE</th>
+              <th>DESIGNATION</th>
+              <th >PRIX UNITAIRE</th>
+              <th >MONTANT</th>
+          </thead>
+          <tbody>
+           <?php
+             $montantHT = 0;
+             $montantTTC = 0;
+            while($row = $result->fetch_assoc()){ 
+                $montantHT = $montantHT + $row['Total'];
+            ?>
+            <tr align="center">
+                <td ><?=$row['quantite']?></td>
+                <td ><?=$row['produit']?></td>
+                <td ><?=$row['prixUnitaire']?></td>
+                <td ><?=$row['Total']?></td> 
+            </tr> 
+            <?php }  ?>
+            <tr align="right" style="font-weight: bold;">
+              <td colspan="3">MONTANT HT</td>
+              <td><?=$montantHT?></td>
+            </tr>
+            <tr align="right" style="font-weight: bold;">
+              <td colspan="3">TVA<?php $rst=$conn->query("SELECT tva FROM factureproforma");
+                if($row=$rst->fetch_assoc()){
+                  $tva=$row['tva']; 
+                } echo $tva.'%'?></td>
+              <td>
+              <?php echo $total=($montantHT*$tva)/100;?>
+              </td>
+            </tr>
+            <tr align="right"  style="font-weight: bold;">
+              <td colspan="3">MONTANT TTC</td>
+              <td class="bg-primary"><?=$montantTTC=$total+$montantHT?></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <a href=""><button class="btn btn-success" name="valider">Valider</button></a> -->
+     </div>
+  </div>
+</div>
+
       <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
 
-      
+      <footer>
+        <p class="text-center"> Alliance Froid / Customer Services<br>Cite Lobat Fall N°44 Dakar Sénégal<br>Tel : 221 338339393 RC N° SN DKR 2015B 7111 NINEA 0054557472A2
+                </p>
+
+    </footer>
+    <form action="../../controlleur/traitementFacture.php" method="POST">
+    <div class="row p-4">
+      <div class="col-3 offset-3">
+          <a href="imprimerFP.php" class="btn btn-warning"><i class="fas fa-print"></i><input type="button" name="imprimerFP" class="btn btn-warning" value="Imprimer la facture" ></a>
+          
+      </div>
+      <div class="col-3">
+        <a href="" class="btn btn-danger"><input type="button" name="annulerFP" id="" class="btn btn-danger" value="Annuler la facture"></a>  
+      </div>
+    </div>
+          
+    </form>
     </main>
   </div>
 </div>
@@ -124,3 +230,5 @@
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
   </body>
 </html>
+
+

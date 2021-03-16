@@ -1,3 +1,4 @@
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 <?php
@@ -6,10 +7,10 @@ include ('info.php');
 $id=$_GET['tel'];
 ?>
 <!-- modifier un employer -->
-<form class=" p-4" method="POST" action="edit.php" enctype="multipart/form-data">
+<form class="container all-content-wrap" style="margin-left: 220px;" method="POST" action="edit.php" enctype="multipart/form-data">
             <h5 class="text-center">Formulaire de Modification</h5>
             <div class="row">
-                <div class="col-6">
+                <div class="col-4 offset-2">
                   <label >Nom</label>
                   <input type="text" class="form-control" name="nomEmp" value="
                   <?php $rst=$conn->query("SELECT nom FROM employer WHERE telephone='$id'");
@@ -49,7 +50,7 @@ $id=$_GET['tel'];
                       <option value="autre">Autres</option>
                   </select>
             </div>
-            <div class="col-6">
+            <div class="col-4 ">
             <label >Salaire</label>
               <input type="text" class="form-control" name="salaireEmp" value=" <?php $rst=$conn->query("SELECT salaire FROM employer WHERE telephone='$id' ");
             while($row=$rst->fetch_assoc()){
