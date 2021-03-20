@@ -40,12 +40,12 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
+    <link href="../../dashboard.css" rel="stylesheet">
   </head>
   <body>
     
 <header class="navbar navbar-dark sticky-top bg-success flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 bg-light" href="#"><img src="static/img/logo ACS.png" alt="logo"></a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 bg-light" href="#"><img src="../../static/img/logo ACS.png" alt="logo"></a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -72,31 +72,31 @@
           <li class="nav-item">
             <a class="nav-link" href="vue/gestionProduit/produit.php">
               <span data-feather="shopping-cart"></span>
-              Produits
+              <i class="fab fa-product-hunt"></i> Produits
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="vue/gestionClient/client.php">
               <span data-feather="users"></span>
-              Clients
+              <i class="fas fa-user-alt"></i> Clients
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="vue/gestionEmployers/employer.php">
               <span data-feather="bar-chart-2"></span>
-              Personnel
+              <i class="fas fa-user-friends"></i> Personnel
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="vue/gestionFacture/Factures.php">
+            <a class="nav-link" href="vue/gestionFacture/facture.php">
               <span data-feather="layers"></span>
-              Factures
+              <i class="fas fa-file-invoice"></i> Factures
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="vue/gestionComptabilite/caisse.php">
               <span data-feather="layers"></span>
-              Comptabilite
+              <i class="fas fa-calculator"></i> Comptabilite
             </a>
           </li>
         </ul>
@@ -105,15 +105,33 @@
     </nav>
 
     <main class=" container all-content-wrap" style="margin-left: 220px;">
-     
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut, natus corrupti adipisci tenetur laboriosam qui. Impedit voluptate adipisci earum consectetur magni placeat sunt ex non, maxime quo, rerum quam rem?
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio molestiae, exercitationem natus rerum quis voluptatum inventore nostrum fugiat possimus tenetur, mollitia assumenda quaerat? Minus quo, earum ad itaque nostrum a.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem quisquam voluptates quaerat rem id cum maiores perspiciatis nemo tempore ex repellendus sunt, ipsam odio ducimus dolorum? Facere praesentium facilis optio.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro nobis deleniti mollitia? Minus tempora et eius expedita blanditiis quas quod, distinctio non maiores dolores perferendis quaerat dolorum, vero ipsa assumenda.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto aliquid pariatur blanditiis minus consequatur maiores esse corrupti at tempore, perferendis sequi dolorem nostrum, labore repudiandae fugiat cum fuga assumenda quis.
-            </p>
-      <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
-
+    <?php
+include('../../model/bd.php');
+//  **************************afficher les informations du produit******************************
+              $id=$_GET['id'];
+              $show= "SELECT * FROM caisse WHERE id= '$id' ";
+              $result=$conn->query($show);
+              if($conn->query($show)==true)
+              echo 'ok';
+              else
+              echo $conn->error;
+?>
+<div class="row">
+  <div class="col-md-6">
+    <?php
+      if($row = $result->fetch_assoc()){ ?>
+        <img src="../../static/img/<?=$row['imageProduit']?>" width="100" height="100"> 
+     <?php }  ?>
+  </div>
+  <div class="col-md-6">
+    <?php
+  if($row = $result->fetch_assoc()){?>
+        <h3>Nom du Produit</h3>
+          <label><?=$row['nomProduit']?></label>
+          <textarea name="" id="" cols="30" rows="10"><?=$row['descriptionProduit']?></textarea>
+    <?php  } ?>
+  </div>
+</div>
       
     </main>
   </div>

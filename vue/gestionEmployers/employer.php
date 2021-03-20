@@ -65,7 +65,7 @@
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-5">
         <ul class="nav flex-column">
-          <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">
               <span data-feather="home"></span>
               Tableau de Bord
@@ -74,42 +74,38 @@
           <li class="nav-item">
             <a class="nav-link" href="../gestionProduit/produit.php">
               <span data-feather="shopping-cart"></span>
-              Produits
+              <i class="fab fa-product-hunt"></i> Produits
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../gestionClient/client.php">
               <span data-feather="users"></span>
-              Clients
+              <i class="fas fa-user-alt"></i> Clients
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../gestionEmployers/employer.php">
               <span data-feather="bar-chart-2"></span>
-              Personnel
+              <i class="fas fa-user-friends"></i> Personnel
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../gestionFacture/Factures.php">
+            <a class="nav-link" href="../gestionFacture/facture.php">
               <span data-feather="layers"></span>
-              Factures
+              <i class="fas fa-file-invoice"></i> Factures
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../gestionComptabilite/caisse.php">
               <span data-feather="layers"></span>
-              Comptabilite
+              <i class="fas fa-calculator"></i> Comptabilite
             </a>
           </li>
         </ul>
 
       </div>
     </nav>
- <main class=" container all-content-wrap" style="margin-left: 220px;">
-           <!-- Button trigger modal -->
-<button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#exampleModalCenter">
-<i class="fas fa-folder-plus"> Nouveau Employé</i>
-</button>
+ <main class=" container all-content-wrapper" style="margin-left: 220px;">
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -156,18 +152,20 @@
       <!-- liste des employers -->
        <?php 
 include ('../../model/bd.php');
-?>
-<!--  recherche -->
-<form class="p-4">
-   <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
- </form>
- <?php
      $query1 = "SELECT * FROM employer ";
      $result = $conn-> query($query1);
     ?>
-    <div class="row">
-        <div class=" offset-1 col-10 p-4"> 
-            <h4 class="text-center">Personnel ACS</h4> 
+    <div class="row container-fluid p-4">
+        <div class="card col-12 p-4"> 
+          <div class="row p-4">
+          <h4 style="font-family: 'Times New Roman'; font-weight: 150; font-style: italic;" class="col-md-3">Personnel ACS</h4> 
+            <input class="form-control mr-sm-2 col-md-4" type="search" placeholder="Recherche" aria-label="Search">
+                      <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success col-md-4" data-toggle="modal" data-target="#exampleModalCenter">
+            <i class="fas fa-folder-plus"> Nouveau Employé</i>
+            </button>
+
+          </div>
         <table class="table table-bordered" >
          <thead align="center">
             <th>Nom</th>

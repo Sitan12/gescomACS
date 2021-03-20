@@ -22,8 +22,8 @@
         </div>
        </nav>
         <!-- lister les produits -->
-       <section>
-         <div class="row p-4">
+       <section class="container">
+         <div class="row">
             <?php
               include ('../model/bd.php');
               $selectIMG=" SELECT * FROM produit";
@@ -31,13 +31,12 @@
               while($row = $resultat->fetch_assoc()){
             ?>
             <!-- <div class="col-12 p-4"> -->
-              <div class="card " style="width: 18rem; margin-left: 20px;">
-                <img src="../static/img/<?=$row['imageProduit']?>" class="card-img-top" alt="..." >
-                <label ><?=$row['prixProduit']?>F CFA</label>
+              <div class="card col-md-3">
+                <img src="../static/img/<?=$row['imageProduit']?>" class="card-img-top" width="50" height="250" alt="..." >
                 <div class="card-body">
                   <h5 class="card-title"  ><?=$row['nomProduit']?></h5>
                   <p class="card-text"><?=$row['descriptionProduit']?></p>
-                  <a href="panier.php?id=<?=$row['id']?>" class="btn btn-success" >Ajouter au panier</a>
+                  <a href="panier.php?id=<?=$row['id']?>" class="btn btn-success" >Contactez-nous</a>
                 </div>
               </div>
                 <?php

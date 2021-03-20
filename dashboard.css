@@ -106,3 +106,9 @@ body {
     background-color: #e12503;
     border-color: #e12503;
 }
+
+label{
+  font-size: 24px;
+  font-family: 'Times New Roman', Times, serif;
+
+}

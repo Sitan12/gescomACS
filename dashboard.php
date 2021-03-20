@@ -54,12 +54,12 @@ if(empty($_SESSION['username']))
 
     
     <!-- Custom styles for this template -->
-    <link href="../../dashboard.css" rel="stylesheet">
+    <link href="dashboard.css" rel="stylesheet">
   </head>
   <body>
     
 <header class="navbar navbar-dark sticky-top bg-success flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 bg-light" href="#"><img src="../../static/img/logo ACS.png" alt="logo"></a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 bg-light" href="#"><img src="static/img/logo ACS.png" alt="logo"></a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -118,43 +118,14 @@ if(empty($_SESSION['username']))
       </div>
     </nav>
 
-    <main class=" container all-content-wrapper" style="margin-left: 220px;">
+    <main class=" container all-content-wrap" style="margin-left: 220px;">
      
-    <?php
-include ('../../model/bd.php');
-// include ('produit.php');
- $id=$_GET['id'];
- ?>
-<form class=" p-4" method="POST" action="EditText.php" enctype="multipart/form-data">
-          <div class="row">
-            <div class="offset-2 card bg-light col-md-8 font-weight-bolder">
-                <h4>Formulaire de modification produit</h3>
-              <label >Nom</label>
-              <input type="text" class="form-control" name="nomPro" value="<?php $rst=$conn->query("SELECT nomProduit FROM produit WHERE id=$id");
-            while($row=$rst->fetch_assoc()){
-              echo''.$row['nomProduit'];
-            }
-          ?>" placeholder="Entrer le nom du produit" required>
-              <label >Description</label>
-              <textarea class="form-control" name="descriptionPro" rows="3"  placeholder="Donner une description du produit" required 
-              ><?php $rst=$conn->query("SELECT descriptionProduit FROM produit WHERE id=$id");
-            while($row=$rst->fetch_assoc()){
-              echo''.$row['descriptionProduit'];
-            }
-          ?></textarea> 
-              <label >Image</label>
-              <input type="file" class="form-control" name="imgPro" value="<?php $rst=$conn->query("SELECT imageProduit FROM produit WHERE id=$id");
-            while($row=$rst->fetch_assoc()){
-              echo''.$row['imageProduit'];
-            }
-          ?>" required > 
-          <input type="hidden" name="id" value="<?php echo $id?>">
-             <div class="p-4">
-             <input type="submit" name="enregistrer" class="btn btn-success" value="Enregistrer">
-             </div>
-            </div>
-          </div>
-      </form>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut, natus corrupti adipisci tenetur laboriosam qui. Impedit voluptate adipisci earum consectetur magni placeat sunt ex non, maxime quo, rerum quam rem?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio molestiae, exercitationem natus rerum quis voluptatum inventore nostrum fugiat possimus tenetur, mollitia assumenda quaerat? Minus quo, earum ad itaque nostrum a.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem quisquam voluptates quaerat rem id cum maiores perspiciatis nemo tempore ex repellendus sunt, ipsam odio ducimus dolorum? Facere praesentium facilis optio.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro nobis deleniti mollitia? Minus tempora et eius expedita blanditiis quas quod, distinctio non maiores dolores perferendis quaerat dolorum, vero ipsa assumenda.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto aliquid pariatur blanditiis minus consequatur maiores esse corrupti at tempore, perferendis sequi dolorem nostrum, labore repudiandae fugiat cum fuga assumenda quis.
+            </p>
       <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
 
       
@@ -167,4 +138,3 @@ include ('../../model/bd.php');
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
   </body>
 </html>
-

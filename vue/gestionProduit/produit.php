@@ -1,3 +1,18 @@
+<?php
+// On prolonge la session
+session_start();
+// On teste si la variable de session existe et contient une valeur
+if(empty($_SESSION['username'])) 
+{
+  // Si inexistante ou nulle, on redirige vers le formulaire de login
+  header('Location:../../index.php');
+  exit();
+}
+?>
+
+<!-- ******************************************************************************************************* -->
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -73,133 +88,162 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="../gestionProduit/produit.php">
               <span data-feather="shopping-cart"></span>
-              Produits
+              <i class="fab fa-product-hunt"></i> Produits
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../gestionClient/client.php">
               <span data-feather="users"></span>
-              Clients
+              <i class="fas fa-user-alt"></i> Clients
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../gestionEmployers/employer.php">
               <span data-feather="bar-chart-2"></span>
-              Personnel
+              <i class="fas fa-user-friends"></i> Personnel
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../gestionFacture/Factures.php">
+            <a class="nav-link" href="../gestionFacture/facture.php">
               <span data-feather="layers"></span>
-              Factures
+              <i class="fas fa-file-invoice"></i> Factures
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="../gestionComptabilite/caisse.php">
               <span data-feather="layers"></span>
-              Comptabilite
+              <i class="fas fa-calculator"></i> Comptabilite
             </a>
           </li>
-        </ul>
-
+          </ul>
       </div>
     </nav>
 
-    <main class=" container all-content-wrap" style="margin-left: 220px;">
-     <!-- Button trigger modal -->
-<button type="button" class="btn btn-success mt-5" style="float: right;" data-toggle="modal" data-target="#exampleModal">
-<i class="fas fa-folder-plus">Ajouter produit</i>  
-</button>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Enregistrer un nouveau produit </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <form class=" p-4" method="POST" action="../../controlleur/traitementProduit.php" enctype="multipart/form-data">
-          <div class="row">
-            <div class="">
-                <h5>Remplissez les champs pour ajouter un produit</h5>
-              <label >Nom</label>
-              <input type="text" class="form-control" name="nomPro" placeholder="Nom du produit" required>
-              <label >Description</label>
-              <textarea class="form-control" name="descriptionPro" rows="3"  placeholder="Description du produit" required></textarea>
-              <label >Image</label>
-              <input type="file" class="form-control" name="imgPro" size="30"  required>
-              <input type="hidden" name="MAX_FILE_SIZE" value="250000" />
-             <div class="modal-footer">
-             <input type="submit" name="ajouter" class="btn btn-success" value="Ajouter">
-             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-             </div>
-            </div>
-          </div>
-      </form>
+    <main class=" container all-content-wrapper" style="margin-left: 220px;">
+     
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Enregistrer un nouveau produit </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <form class=" p-4" method="POST" action="../../controlleur/traitementProduit.php" enctype="multipart/form-data">
+              <div class="row">
+                <div class="">
+                    <h5>Remplissez les champs pour ajouter un produit</h5>
+                  <label >Nom</label>
+                  <input type="text" class="form-control" name="nomPro" placeholder="Nom du produit" required>
+                  <label >Description</label>
+                  <textarea class="form-control" name="descriptionPro" rows="3"  placeholder="Description du produit" required></textarea>
+                  <label >Image</label>
+                  <input type="file" class="form-control" name="imgPro" size="30"  required>
+                  <input type="hidden" name="MAX_FILE_SIZE" value="250000" />
+                  <div class="modal-footer">
+                    <input type="submit" name="ajouter" class="btn btn-success" value="Ajouter">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
+  <!-- fin container -->
 </div>
-<!-- fin container -->
-</div>
-      <!-- liste des produits -->
+      
       <?php 
 include ('../../model/bd.php');
-     $query1 = "SELECT *  FROM produit  ORDER BY id";
-     $result = $conn-> query($query1);
-    ?>
-    <div class="row container " style="margin-left: 220px;">
-        <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12"> 
-        <h4 style="font-family: 'Times New Roman'; font-weight: 150; font-style: italic;">Liste Produits </h4> 
-        <table class="table table-bordered" >
-         <thead align="center">
-         <th >Image</th>
-            <th >Nom</th>
-            <th >Description</th>
-            <th>Date</th>
-            <th >Action</th>
-         </thead>
-         <tbody> <?php
-         while($row = $result->fetch_assoc()){?>
-         <tr align="center">
-             
-             <td ><?=$row['imageProduit']?></td> 
-             <td ><?=$row['nomProduit']?></td>
-             <td ><?=$row['descriptionProduit']?></td>
-             <td ><?=$row['dateEnregistrement']?></td> 
+ // **********************************************RECHERCHER UN PRODUIT**********************************************
             
-             <td class="">
-                 <a href="supprimerProduit.php?id=<?=$row['id']?>" class="btn btn-danger" ><i class="fas fa-trash-alt"></i></a>
-                 <a href="ModifierProduit.php?id=<?=$row['id']?>" class="btn btn-warning" ><i class="fas fa-edit"></i></a>
-             </td>
-         </tr>  
-         <?php }
-         ?>
-         </tbody>
-        </table>
-        <div class="custom-pagination">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
+            // Récupère la recherche
+            if(isset($_POST['recherche'])){
+              $recherche = $_POST['recherche'];
+              // la requete mysql
+            $sql = "SELECT * FROM produit
+                    WHERE nomProduit LIKE '%$recherche%'
+                    OR descriptionProduit LIKE '%$recherche%'
+                    LIMIT 10";
+              $result = $conn-> query($sql);
+            }else{
+                 // ---------------------- liste des produits--------------------------
+                  $sql = "SELECT *  FROM produit  ORDER BY id";
+                  $result = $conn-> query($sql);
+            }
+            
+         
+    ?>
+  <div class="container-fluid bg-light offset-2 mr-2 mt-5" style="width: 1000px;" >
+      <div class="row">
+        <div class="col-md-3">
+          <h4 style="font-family: 'Times New Roman'; font-weight: 150; font-style: italic;" class="mt-3">Liste Produits </h4>
         </div>
-      <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
-
-      
-    </main>
+        <div class="col-md-5">
+            <!-- ************Recherche**************** -->
+            <form method="POST" action="" class="input-group"> 
+              <input type="text" class="form-control mt-3" placeholder="Rechercher un produit" name="recherche">
+              <!-- <i class="fas fa-search"></i> -->
+              <input type="submit" class="mt-3 btn" value="Rechercher!"> 
+          </form>
+        </div>
+        <div class="col-md-4">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-success mb-3 mt-3" style="float: right;" data-toggle="modal" data-target="#exampleModal">
+                  <i class="fas fa-folder-plus">Ajouter produit</i>  
+              </button>
+        </div>
+        
+      </div>
+       
+      <div class="row container">  
+                <table class="table col-md-12" >
+                <thead align="center" style="font-weight: 300;"> 
+                    <th >IMAGE</th>
+                    <th >NOM</th>
+                    <th >DESCRIPTION</th>
+                    <th>DATE</th>
+                    <th >ACTION</th>
+                </thead>
+                <tbody> <?php
+                while($row = $result->fetch_assoc()){?>
+                <tr align="center">
+                    <td><img src="../../static/img/<?=$row['imageProduit']?>" width="50" height="50"></td> 
+                    <td ><?=$row['nomProduit']?></td>
+                    <td ><?=$row['descriptionProduit']?></td>
+                    <td ><?=$row['dateEnregistrement']?></td> 
+                    <td class="">
+                        <a href="supprimerProduit.php?id=<?=$row['id']?>" class="btn btn-danger" title="Suprimer le produit" ><i class="fas fa-trash-alt"></i></a>
+                        <a href="showProduit.php?id=<?=$row['id']?>" class="btn btn-primary" title="Voir Details"><i class="fas fa-eye"></i></a>
+                        <a href="ModifierProduit.php?id=<?=$row['id']?>" class="btn btn-warning " title="Editer le produit" ><i class="fas fa-edit"></i></a>
+                    </td>
+                </tr>  
+                <?php }
+                ?>
+                </tbody>
+                </table>
+            <div class="custom-pagination">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination">
+                                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+            </div>
+          <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
+        </div>
   </div>
-</div>
+  </main> 
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 

@@ -211,7 +211,7 @@
         <p class="text-center"> Alliance Froid / Customer Services<br>Cite Lobat Fall N°44 Dakar Sénégal<br>Tel : 221 338339393 RC N° SN DKR 2015B 7111 NINEA 0054557472A2
                 </p>
     </footer>
-    <form method="POST" action="#"  enctype="multipart/form-data" >
+    <form method="POST" action="../../controlleur/traitementFacture.php"  enctype="multipart/form-data" >
       <div class="row p-4">
         <div class="col-3 offset-3">
             <a href="imprimerFD.php" class="btn btn-warning"><i class="fas fa-print"></i><input type="button" name="imprimerFD" class="btn btn-warning" value="Imprimer la facture" ></a>

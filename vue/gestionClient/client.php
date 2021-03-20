@@ -73,7 +73,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="../gestionProduit/produit.php">
               <span data-feather="shopping-cart"></span>
               Produits
             </a>
@@ -91,13 +91,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../gestionFacture/Factures.php">
+            <a class="nav-link" href="../gestionFacture/facture.php">
               <span data-feather="layers"></span>
               Factures
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="../gestionComptabilite/caisse.php">
               <span data-feather="layers"></span>
               Comptabilite
             </a>
@@ -107,63 +107,60 @@
       </div>
     </nav>
 
-    <main class=" container all-content-wrap" style="margin-left: 220px;">
+    <main class=" container all-content-wrapper" style="margin-left: 220px;">
     <div class="container p-4 row">
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" >
-  <i class="fas fa-folder-plus">Nouveau</i> 
-  </button>
-  <input class="form-control offset-1 col-md-4 " type="search" placeholder="Rechercher un client" aria-label="Search">
-  <!-- Modal ajouter -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ajouter un nouveau client</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    
+      
+        <!-- Modal ajouter -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Ajouter un nouveau client</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <!-- ajouter un client -->
+            <form class="p-4" method="POST" action="../../controlleur/traitementClient.php" enctype="multipart/form-data">
+                    <label >Prenom & Nom</label>
+                    <input type="text" class="form-control" name="nom" placeholder="Entrer le nom complet" required>
+                    <label >Adresse</label>
+                    <input type="text" class="form-control" name="adresse" placeholder="l'adresse du client " required>
+                    <label >Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="exemple: acs@gmail.com " required>
+                    <label >Telephone</label>
+                    <input type="number" class="form-control mb-3" name="tel" placeholder="Entrer le numero du client" required>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <input type="submit" name="ajouter" class="btn btn-success" value="Valider">
+                  </div> 
+              </form>
+        </div>  
       </div>
-      <div class="modal-body">
-         <!-- ajouter un client -->
-       <form class=" p-4" method="POST" action="../../controlleur/traitementClient.php" enctype="multipart/form-data">
-              <label >Prenom & Nom</label>
-              <input type="text" class="form-control" name="nom" placeholder="Entrer le nom complet" required>
-              <label >Adresse</label>
-              <input type="text" class="form-control" name="adresse" placeholder="l'adresse du client " required>
-              <label >Email</label>
-              <input type="email" class="form-control" name="email" placeholder="exemple: acs@gmail.com " required>
-              <label >Telephone</label>
-              <input type="number" class="form-control mb-3" name="tel" placeholder="Entrer le numero du client" required>
-             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <input type="submit" name="ajouter" class="btn btn-success" value="Valider">
-            </div> 
-        </form>
-      </div>  
     </div>
   </div>
-</div>
 
 <!-- liste des clients -->
 <?php 
 include ('../../model/bd.php');
-?>
-<!--  recherche -->
-<form class="p-4">
-   <!-- <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search"> -->
- </form>
- <?php
      $query1 = "SELECT * FROM client ";
      $result = $conn-> query($query1);
     ?>
-    <div class="row container">
-        <div  class="col-lg-10 col-md-12 col-sm-12 col-xs-12 p-4"> 
-            <h4  style="font-style: italic; font-weight: bold;">Liste Clients </h4> 
-        <table class="table table-bordered" >
+    <div class="row container-fluid ">
+        <div  class="card col-md-12 bg-light"> 
+          <div class="row p-4">
+             <h4  style="font-family: 'Times New Roman'; font-style: italic; font-weight: 150;" class="col-md-3">Liste Clients </h4> 
+              <input class="form-control col-md-4 " type="search" placeholder="Rechercher un client" aria-label="Search">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-success offset-1 col-md-4" data-toggle="modal" data-target="#exampleModal" >
+                <i class="fas fa-folder-plus">Nouveau</i> 
+              </button>
+          </div>
+            <table class="table table-bordered" >
          <thead align="center"  >
-             <th>Identifiant</th>
-            <th>Prenom&Nom</th>
+            <th>Nom</th>
             <th >Adresse</th>
             <th >Email</th>
             <th>Telephone</th>
@@ -172,7 +169,6 @@ include ('../../model/bd.php');
          <tbody> <?php
          while($row = $result->fetch_assoc()){?>
          <tr align="center">
-             <td ><?=$row['id']?></td>
              <td ><?=$row['nom']?></td>
              <td ><?=$row['adresse']?></td>
              <td ><?=$row['email']?></td> 

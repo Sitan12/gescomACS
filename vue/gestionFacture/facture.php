@@ -55,7 +55,7 @@
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-5">
         <ul class="nav flex-column">
-          <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">
               <span data-feather="home"></span>
               Tableau de Bord
@@ -64,31 +64,31 @@
           <li class="nav-item">
             <a class="nav-link" href="../gestionProduit/produit.php">
               <span data-feather="shopping-cart"></span>
-              Produits
+              <i class="fab fa-product-hunt"></i> Produits
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../gestionClient/client.php">
               <span data-feather="users"></span>
-              Clients
+              <i class="fas fa-user-alt"></i> Clients
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../gestionEmployers/employer.php">
               <span data-feather="bar-chart-2"></span>
-              Personnel
+              <i class="fas fa-user-friends"></i> Personnel
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../gestionFacture/Facture.php">
+            <a class="nav-link" href="../gestionFacture/facture.php">
               <span data-feather="layers"></span>
-              Factures
+              <i class="fas fa-file-invoice"></i> Factures
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../gestionComptabilite/caisse.php">
               <span data-feather="layers"></span>
-              Comptabilite
+              <i class="fas fa-calculator"></i> Comptabilite
             </a>
           </li>
         </ul>
@@ -98,40 +98,55 @@
     <main class=" container all-content-wrap" style="margin-left: 220px;"> 
     <?php
 include ('../../model/bd.php');
+// header('Location: facture.php');
 ?>
 <!-- Formulaire commande -->
-<div class="container">
-    <h4 class="p-4"> formulaire de Facture:</h4>
-  <form class="insert-form p-4" method="POST" action="../../controlleur/traitementFacture.php" enctype="multipart/form-data">
-    <div class="input-field">
-              <div class="row">
-              <div class="col-4 input-group"><?php
-                    $query1 = "SELECT nom,id FROM client GROUP BY id";
-                    $result = $conn-> query($query1);
-                    ?>
-                      <select class="form-control" name="client" required >
-                            <option value="0">Client</option><?php
-                            while($row = $result->fetch_assoc()){?>
-                                  <option value="<?=$row['id']?>"><?=$row['nom']?></option>
-                            <?php } ?>
-                      </select>
-                      <a href="../gestionClient/client.php"><button class="btn btn-success input-group-text" style="font-weight: bold;">Nouveau</button></a>
+<div class="container-fluid">
+    <h4 class="card col-md-4 offset-4 mt-4 text-center" style="font-family: 'Times New Roman'; font-weight: 150; font-style: italic; background-color: cornsilk;"> Formulaire de Facture:</h4>
+  <form class="insert-form card p-4" style="background-color: cornsilk;" method="POST" action="../../controlleur/traitementFacture.php" enctype="multipart/form-data">
+    <div class="input-field p-4">
+           
+                <div class=" input-group mb-3"><?php
+                      $query1 = "SELECT nom,id FROM client GROUP BY id";
+                      $result = $conn-> query($query1);
+                      ?>
+                      <a href="../gestionClient/client.php" >
+                      <input  class="input-group-text bg-success" type="button" style="color: cornsilk;" value="Nouveau-Client">
+                      </a>
+                </div> 
+                <div class="row ">
+                  <div class="col-md-8 input-group mb-3 ">   
+                      <label for="client" style="font-weight: bold; color:cornsilk" class="input-group-text bg-success">CHOISIR LE DESTINATAIRE</label>
+                        <select class="form-control" name="client" required >
+                            <?php
+                              while($row = $result->fetch_assoc()){?>
+                                    <option value="<?=$row['id']?>"><?=$row['nom']?></option>
+                              <?php } ?>
+                        </select>
                   </div>
-                  <div class="col-2 input-group mb-3 ">
-                    <label class="input-group-text" style="font-weight: bold;">TVA</label>
-                   <input type="number" class="form-control" name="tva" required placeholder="18%"> 
+              </div>   
+                  <div class="row">
+                    <div class="col-md-4  input-group mb-3 ">
+                      <label class="input-group-text bg-success" style="font-weight: bold; color:cornsilk">TVA</label>
+                    <input type="number" class="form-control" name="tva" required placeholder="18%"> 
+                    </div>
+                  </div>  
+                  <div class="row">
+                  <div class="col-md-6 input-group mb-3" style="font-family: 'Times New Roman'; font-weight: 150;">
+                  <label for="type" style="font-weight: bold; color:cornsilk" class="input-group-text bg-success">TYPE FACTURE</label>
+                          <input type="radio" id="definitive" class="ml-3 mt-3" name="facture" value="1">
+                          <label for="facture" class="ml-2">  Définitive </label>
+                          <input type="radio" id="proforma" name="facture" value="0" checked class="ml-3 mt-3" >
+                          <label for="facture" class="ml-2">  Proforma</label>
+                          
+                    </div>
                   </div>
-                  <div class="col-4 label ">FACTURE:
-                        <input type="radio" id="definitive" name="facture" value="1"  > DEFINITIVE
-                        <input type="radio" id="proforma" name="facture" value="0" checked class="ml-2"> PROFORMA
-                  </div>
-              </div>    
         <table class="table table-bordered" id="table-field"> 
-            <tr>
+            <tr class="text-center" style="font-family: 'Times New Roman';font-size: 20px;">
                 <th>Produit</th>
                 <th>Quantite</th>
                 <th>Prix</th>
-                <th><input type="button" name="add"  id="add" title="Ajouter une nouvelle ligne" class="btn btn-warning" value="+"></th>
+                <th class="bg-warning" ><i class="fas fa-cart-plus" style="font-size: 24px; color:white" type="button" name="add"  id="add" title="Ajouter une nouvelle ligne"></i></th>
             </tr>
             <tr>
                 <td><?php $query1 = "SELECT nomProduit,id FROM produit GROUP BY id"; 
@@ -143,11 +158,11 @@ include ('../../model/bd.php');
                 </td>
                 <td> <input class="form-control" name="qte[]" type="number" min="0" required></td>
                 <td> <input class="form-control" name="prix[]" type="number" min="0"  required></td>
-                <td><input type="button" name="retirer"  id="retirer" title="Retirer cette ligne" class="btn btn-danger"  value="x"></td>
+                <td class="text-center bg-danger"><i class="far fa-trash-alt" style="font-size: 24px; font-weight: bold; color:white" type="button" name="retirer"  id="retirer" title="Retirer cette ligne"></i></td>
             </tr>
         </table>
         <center>
-        <button class="btn btn-success" name="save">Generer la facture</button>
+        <button class="btn btn-success" style="color:cornsilk; font-weight:bold;" name="save">Generer la facture</button>
         </center>
     </div>  
   </form>     
@@ -167,7 +182,7 @@ include ('../../model/bd.php');
             ligne +='<td><?php $query1 = "SELECT nomProduit,id FROM produit GROUP BY id"; $result = $conn-> query($query1);?><select class="form-control" name="produit[]" required><option>Choisir un produit</option><?php while($row = $result->fetch_assoc()){?><option value="<?=$row['id']?>"><?=$row['nomProduit']?></option><?php } ?></select></td>';
             ligne += '<td> <input class="form-control" name="qte[]" type="number" min="0"  required></td>';
             ligne += '<td><input class="form-control" name="prix[]" type="number" min="0" required></td>';
-            ligne += ' <td><input type="button" name="retirer"  id="retirer" title="Retirer cette ligne" class="btn btn-danger" value="x"></td>';
+            ligne += '<td class="text-center bg-danger"><i class="far fa-trash-alt" style="font-size: 24px; font-weight: bold; color:white" type="button" name="retirer"  id="retirer" title="Retirer cette ligne"></i></td>';
             ligne += '</tr';
             $("#add").click(function(){
             $("#table-field").append(ligne);
