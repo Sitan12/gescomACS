@@ -1,123 +1,195 @@
-<?php
-  //Affichage des erreurs php
-  error_reporting(E_ALL);
-  ini_set('display-errors','on');
   
-  //démarrage des sessions
-  if(session_id() == '') {
-	  session_start();
-	}
+  <!-- Inclure le header du site -->
+  <?php
+    include ('header/header.php');
+  ?>
+  <div class="container">
 
-  //connexion à la bdd
-  include('model/bd.php');
-  
-  //récupération PROPRE des variables AVANT de les utiliser
-    // $username = !empty($_POST['username']) ? trim($_POST['username']) : NULL;
-     // $pwd = !empty($_POST['password']) ? trim($_POST['password']) : NULL;
-     
-        
-        $errMsg = array();
-  
-  //traitement du formulaire  
-    if(isset($_POST['login']))
-    {
-        $username=$_POST['username'];
-        $pwd=$_POST['password'];
-		$errMsg = "";
-		//login and password sent from Form
-        if(empty($username))
-        {
-            $errMsg=[];
-			$errMsg[] = "Veuillez entrer votre nom<br>";	
-        }
-	
-        if(empty($pwd))
-        {
-            $errMsg=[] ;
-            $errMsg[]= "Veuillez entrer votre mot de passe<br>";
-        }
-    
-        if(empty($errMsg))
-        {   
-            //execution de la requete
-            try
-            {
-                $sql="SELECT username,pwd FROM connexion";
-                $result=$conn->query($sql);
-                
-            }catch(Exception $e)
-            {
-                echo "<p>Erreur : " . $e->getMessage() . "</p>";
-                exit();
-            }
-            if($row=$result->fetch_array())
-                {
-                    
-                    if($username===$row['username'] && $pwd===$row['pwd'])
-                    {   
-                        $_SESSION['username'] = $row['username'];
-                        header('Location: dashboard.php');
-                        exit();
-                    }else {
-                        $errMsg=[];
-                        $errMsg[] = "Vérifiez vos identifiants de connexion<br>";
-                    }
-                }
-           
-          
-        }		
-    }
-
-?>
-<!-- *********************************************************************** -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    <title>Login</title>
-</head>
-<body>
-    <div class="container" >
-        <div class="row d-flex justify-content-center mt-5 p-4 ">
-        <?php
-                if(!empty($errMsg))
-                {
-                    echo '<div style="color:#FF0000;text-align:center;font-size:12px;">';
-                    foreach($errMsg as $err){
-                            echo $err;
-                }
-          echo '</div>';
-				}
-			?>
-            <div class=" card col-md-6 p-4" style="background-Color:cornsilk;">
-                    <h1><i style="font-size: 100px;" class="offset-5 fas fa-user-circle "></i></h1>
-                <div class="card p-4" style="background-Color:cornsilk;">
-                        <form action="" method="POST">   
-                            <h3 class="text-center">Administrateur</h3>
-                            <div class="input-group mb-3">
-                                <i class=" input-group-text fas fa-user  bg-info"></i>  
-                                <input type="email" class="form-control" name="username" placeholder="Identifiant" required>
-                            </div>
-                            
-                            <div class="input-group mb-3">
-                            <i class="input-group-text fas fa-key  bg-info"></i>
-                            <input type="password" class="form-control" name="password" placeholder="Mot De Passe" required>
-                            </div>
-                            <div class="row justify-content-end">
-                                <a class="float-right" href="">Mot de Passe Oublié?</a>
-                            </div>
-                            <div class="row justify-content-center">
-                                 <input type="submit" class="btn-success" name="login" value="Login">
-                            </div>
-                        </form>
-                </div>
-            </div>
-        </div>
+  <!-- Section racourcis -->
+  <section class="container-fluid p-5">
+    <div class="container row m-auto d-flex p-5">
+      <div class="col-md-4 col-auto card">
+        <h3 class="titre text-center p-2"><strong>Nos produits</strong></h3>
+        <marquee behavior="" direction="left">
+         <img src="admin/static/representationdacs/electromenagers-acs.jpg" width="250" height="225"  alt="">
+          <img src="admin/static/representationdacs/split.jpg" width="250" height="225"  alt="">
+          <img src="admin/static/representationdacs/images.jpg" width="250" height="225"  alt="">
+        </marquee>
+        <p class=" p-2 mt-1 text-center">
+          <strong>ACS vous propose quatres (4) raisons pour choisir ces produits :</strong>
+          <ul class="card bg-light">
+            <li>
+              Un produit garanti, une installation gratuite et en toute sécurité
+            </li>
+            <li>
+              La qualité et la rigueur dans le travail
+            </li>
+            <li>
+              Une équipe professionnelle
+            </li>
+            <li>
+              Des prix compétitifs
+            </li>
+          </ul>
+        </p>
+      </div>
+      <div class="col-md-4 col-auto card text-center">
+        <h3 class="titre text-center p-2"><strong>Nos réalisations<!-- La qualité et la rigueur dans le travail --></strong></h3>
+        <marquee behavior="" direction="left">
+          <img src="admin/static/representationdacs/tof1.jpg" width="250" height="225" alt="">
+          <img src="admin/static/representationdacs/tof2.jpg" width="250" height="225" alt="">
+          <img src="admin/static/representationdacs/tof3.jpg" width="250" height="225" alt="">
+          <img src="admin/static/representationdacs/tof4.jpg" width="250" height="225" alt="">
+        </marquee>
+        <p class="p-2 mt-1 text-center">
+        <strong>ACS, un fournisseur de produits numéro UN de l'électroménager</strong>
+        </p>
+        <ul class="card bg-light">
+        <li>
+        Depuis sa création jusqu'à nos jours, compte une centaine de clients
+        </li>
+        <li>
+        En 1 an nous avons intervenu sur 1000 appareils.
+        </li>
+        </ul>
+      </div>
+      <div class="col-md-4 col-auto card">
+        <h3 class="titre text-center p-2"><strong>Ce que nous faisons</strong></h3>
+        <marquee behavior="" direction="left">
+          <img src="admin/static/representationdacs/image1.jpg" width="250" height="225"  alt="">
+          <img src="admin/static/representationdacs/image2.png" width="250" height="225"  alt="">
+          <img src="admin/static/representationdacs/image3.png" width="250" height="225"  alt="">
+        </marquee>
+        <p class="p-2 mt-1  text-center">
+          <strong>Nous proposons plusieurs prestations telles que:</strong>
+          <ul class="card bg-light">
+            <li>
+              L'installation et la maintenance des équipements de climatisation
+            </li>
+            <li>
+              La vente d'appareils électroménagers
+            </li>
+            <li>
+              La fourniture de pièces détachées
+            </li>
+            <li>
+              La location de Split armoire pour vos événements
+            </li>
+          </ul>
+        </p>
+      </div>
     </div>
-</body>
-</html>
+    <hr class="container mb-4">
+  </section>
+
+  
+  <!-- A propos de nous -->
+  <section id="quiSommeNous" class="row">
+    <div class="text-center col-md-8 offset-md-2 d-flex justify-content-center p-5 card bg-light" >
+      <h2 class="titre"><strong>A propos de nous</strong></h2>
+      <p class="p-3">
+        Numéro un de l'électroménager ACS dispose d'une équipe de techniciens qualifiés mais aussi spécialisés pour vous garantir des prestations de qualité, en effet toujours dans le soucis de satisfaire sa clientèle nos techniciens vous accompagnent et vous conseillent afin de sécuriser vos installation et autres travaux
+      </p>
+      <p>
+        La priorité d’ACS est la satisfaction des clients raison pour laquelle nous sommes toujours à l’écoute de ces derniers.
+      </p>
+    </div>
+  </section>
+  <hr class="container mt-5 mb-5">
+      <!-- lister les services -->
+  <section class="container">
+    <div class="container card p-5 m-2 bg-light">
+      <h2 class="text-center titre" id="services"><strong>Nos services</strong></h2>
+      <div class="row p-4">
+        <div class="col-md-3 col-auto">
+          <img class="img-fluid" src="admin/static/representationdacs/IMG_0314.jpg" alt="">
+        </div>
+        <div class="col-md-3 col-auto">
+          <h3>Installation et maintenance</h3>
+          <p>ACS est un fournisseur de produits Electroménager mais aussi il assure le service après-vente tel que l'installation qui consiste à fixer et mettre en marche l'appareil; et la maintenance des appareils (entretien de split...).
+          </p>
+        </div>
+        <div class="col-md-3 col-auto">
+          <img class="img-fluid" src="admin/static/img/detaches.png" alt="">
+        </div>
+        <div class="col-md-3 col-auto">
+          <h3>La Fourniture de pièces détachées</h3>
+          <p>ACS s'active aussi dans la vente de pièces détachées de tout appareil électroménager pour éviter la lenteur durant l’intervention en cas de panne chez le client.</p>
+        </div>
+      </div>
+      <div class="row p-5">
+        <div class="col-md-3 col-auto">
+          <img class="img-fluid" src="admin/static/representationdacs/electromenagers-acs.jpg" alt="">
+        </div>
+        <div class="col-md-3 col-auto">
+          <h3>La fourniture d'appareils électro-ménagers</h3>
+          <p>
+             ACS propose une large gamme de produits:
+              Des climatiseurs
+              Des cuisinières
+              Des machines à laver
+              Des réfrigérateurs et congélateurs
+          </p>
+        </div>
+        <div class="col-md-3 col-auto">
+          <img class="img-fluid" src="admin/static/representationdacs/split.jpg" alt="">
+        </div>
+        <div class="col-md-3 col-auto">
+          <h3>La location de split armoire pour vos évènements</h3>
+          <p>Toujours dans le souci de satisfaire sa clientèle, ACS vous accompagne durant vos événements avec sa prestation qui consiste à louer des Splits armoires.</p>
+        </div>
+      </div>
+    </div>
+    
+  </section>
+
+  <hr class="container mt-5 mb-3">
+
+  <section>
+      <div class="container text-center">
+        <h2 class="titre p-5"><strong>Nos marques d'appareils :</strong></h2>
+        <img class="espace" src="admin/static/logo/midea.png" alt="" width="60" height="60">
+        <img class="espace" src="admin/static/logo/wilson.png" alt="" width="60" height="60">
+        <img class="espace" src="admin/static/logo/gree.png" alt="" width="60" height="60">
+        <img class="espace" src="admin/static/logo/vestel.jpg" alt="" width="60" height="60">
+        <img class="espace" src="admin/static/logo/astech.jpg" alt="" width="60" height="60">
+        <img class="espace" src="admin/static/logo/serico.png" alt="" width="60" height="60">
+        <img class="espace" src="admin/static/logo/beko.png" alt="" width="60" height="60">
+        <img class="espace" src="admin/static/logo/westpool.jpg" alt="" width="60" height="60">
+        <img class="espace" src="admin/static/logo/lg.png" alt="" width="60" height="60">
+        <img class="espace" src="admin/static/logo/samsung.jpg" alt="" width="60" height="60">
+        <img class="espace" src="admin/static/logo/airwell.jpg" alt="" width="60" height="60">
+        <img class="espace" src="admin/static/logo/solstar.jpg" alt="" width="60" height="60">
+        <img class="espace" src="admin/static/logo/hisense.png" alt="" width="60" height="60">
+
+      </div>
+
+  </section>
+
+  <hr class="container mt-5 mb-3">
+  <section>
+    <h2 class="text-center titre"><strong>Nos partenaires</strong></h2>
+    <div class="bg-light">
+      <marquee  scrollamount="5" scrolldelay="5">
+        <!-- L'objet parcourt 2px chaque 10ms -->
+        <img src="admin/static/partenaires/ccbm.jpg">
+        <img src="admin/static/partenaires/esup.jpg">
+        <img src="admin/static/partenaires/grande-cote.jpg">
+        <img src="admin/static/partenaires/ics.jpg">
+        <img src="admin/static/partenaires/nma.png">
+        <img src="admin/static/partenaires/osama.jpg">
+        <img src="admin/static/partenaires/pad.png">
+        <img src="admin/static/partenaires/presidence.jpg">
+        <img src="admin/static/partenaires/sfg.jpg">
+        <img src="admin/static/partenaires/sosagrin.jpg">
+        <img src="admin/static/partenaires/ucad.jpg">
+        <img src="admin/static/partenaires/usa.jpg">
+      </marquee> 
+    </div>
+  </section>
+  </div>
+  <!-- Inclure le footer -->
+ <?php 
+  include ('footer/footer.php')
+ ?>
+
